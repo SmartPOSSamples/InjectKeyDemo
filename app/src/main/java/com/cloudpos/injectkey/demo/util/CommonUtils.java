@@ -2,6 +2,7 @@ package com.cloudpos.injectkey.demo.util;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by lizhou on 18-3-2.
