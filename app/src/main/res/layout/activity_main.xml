@@ -5,28 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="com.wizarpos.injectkey.demo.com.cloudpos.injectkey.demo.MainActivity">
 
     <Button
         android:id="@+id/btn_inject_master_key"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#2196F3"
         android:onClick="doInjectMasterKey"
-        android:text="Request Inject Master Key" />
+        android:textColor="@color/colorWhite"
+        android:text="Request Inject Master Key"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_inject_transport_key"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#2196F3"
         android:onClick="doInjectTransportKey"
-        android:text="Request Inject Transport Key" />
+        android:textColor="@color/colorWhite"
+        android:text="Request Inject Transport Key"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_inject_dukpt_key"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#2196F3"
         android:onClick="doInjectDukptKey"
-        android:text="Request Inject DUKPT Key" />
-
+        android:textColor="@color/colorWhite"
+        android:text="Request Inject DUKPT Key"
+        android:textSize="16sp" />
 
 </LinearLayout>

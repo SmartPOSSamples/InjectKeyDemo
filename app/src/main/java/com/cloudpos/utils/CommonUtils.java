@@ -1,4 +1,4 @@
-package com.cloudpos.injectkey.demo.util;
+package com.cloudpos.utils;
 
 import java.io.Closeable;
 import java.io.IOException;

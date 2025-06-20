@@ -2,7 +2,7 @@ package com.cloudpos.injectkey.demo;
 
 import android.support.annotation.NonNull;
 
-import com.cloudpos.injectkey.demo.util.CommonUtils;
+import com.cloudpos.utils.CommonUtils;
 
 
 public class RKey {

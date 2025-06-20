@@ -20,7 +20,7 @@
 * 1, the using of big-endian is wrong in int <--> byte 
 */
 
-package com.cloudpos.injectkey.demo.util;
+package com.cloudpos.utils;
 
 import org.bouncycastle.util.encoders.Base64;
 

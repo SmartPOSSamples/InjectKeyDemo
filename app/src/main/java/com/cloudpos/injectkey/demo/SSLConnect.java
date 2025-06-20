@@ -3,9 +3,10 @@ package com.cloudpos.injectkey.demo;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+
 import com.alibaba.fastjson2.JSON;
-import com.cloudpos.injectkey.demo.util.CommonUtils;
-import com.cloudpos.injectkey.demo.util.Logger;
+import com.cloudpos.utils.CommonUtils;
+import com.cloudpos.utils.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,9 +28,9 @@ import javax.net.ssl.TrustManagerFactory;
  */
 
 public class SSLConnect {
-//private String host = "192.168.200.201";
+//    private String host = "192.168.200.201";
     private String host = "app.wizarpos.com";
-    private int port = 11060;
+    private int port = 2200;
     private int connectTimeout = 3 * 1000;
     private int readTimeout = 100000 * 1000;
 

@@ -10,10 +10,8 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.cloudpos.injectkey.demo.key.PINPadException;
-import com.cloudpos.injectkey.demo.util.ByteConvert;
-import com.cloudpos.injectkey.demo.util.Logger;
-import com.cloudpos.injectkey.demo.util.UiUtils;
+import com.cloudpos.utils.Logger;
+import com.cloudpos.utils.UiUtils;
 import com.wizarpos.security.injectkey.aidl.IKeyLoaderService;
 
 import org.bouncycastle.util.encoders.Hex;
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 byte[] authInfo = keyLoaderService.getAuthInfo();
                 Result result = sslConnect.writeAndRead((byte) 0x01, authInfo);
                 int status = result.getStatus();
+                Logger.debug("doInjectMasterKey(%s)", status);
                 if (status != Result.SUCCESS) {
                     UiUtils.showToastLong(MainActivity.this, result.getDesc());
                     return;
@@ -66,9 +65,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 //                    injector.importKeyInfo(keyInfo);
                     int keyResult = keyLoaderService.importKeyInfo(keyInfo);
                     Logger.debug("doInjectMasterKey(importKeyInfo = %s)", keyResult);
-                    if(keyResult < 0){
-                        throw new PINPadException("importkeyInfo failed! error code is " + keyResult);
-                    }
                 }
                 UiUtils.showDialogInfo(MainActivity.this, "Inject master key success");
             } catch (Exception | Error e) {
@@ -78,6 +74,14 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 sslConnect.disconnect();
             }
         }).start();
+    }
+
+    private void injectKey(byte[] keyInfo) throws Exception{
+        int injectResult = keyLoaderService.importKeyInfo(keyInfo);
+        Logger.debug("doInjectMasterKey(importKeyInfo = %s)", injectResult);
+        if(injectResult < 0){
+            throw new Exception(String.format("importKeyInfo failed! reason: %s", injectResult));
+        }
     }
 
     public void doInjectTransportKey(View view) {
@@ -96,11 +100,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                 for (RKey key : result.getKeys()) {
                     byte[] keyInfo = key.getKeyData();
                     UiUtils.showToastLong(MainActivity.this, "Receive key info from remote server. And prepare to import transport key info.");
-                    int keyResult = keyLoaderService.importKeyInfo(keyInfo);
-                    Logger.debug("doInjectTransportKey(importKeyInfo = %s)", keyResult);
-                    if(keyResult < 0){
-                        throw new PINPadException("importkeyInfo failed! error code is " + keyResult);
-                    }
+                    injectKey(keyInfo);
                 }
                 UiUtils.showDialogInfo(MainActivity.this, "Inject transport key success");
 
@@ -129,10 +129,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     byte[] keyInfo = key.getKeyData();
                     UiUtils.showToastLong(MainActivity.this, "Receive key info from remote server. And prepare to import dukpt key info.");
                     int keyResult = keyLoaderService.importKeyInfo(keyInfo);
-                    Logger.debug("doInjectDukptKey(importKeyInfo = %s)", keyResult);
-                    if(keyResult < 0){
-                        throw new PINPadException("importkeyInfo failed! error code is " + keyResult);
-                    }
+                    Logger.debug("doInjectMasterKey(importKeyInfo = %s)", keyResult);
                 }
 
                 UiUtils.showDialogInfo(MainActivity.this, "Inject dukpt key success");
@@ -148,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         try {
             byte[] authInfo = keyLoaderService.getAuthInfo();
             if(authInfo != null){
-                Logger.debug("onServiceConnected(%s)", ByteConvert.buf2String("",authInfo));
+                Logger.debug("onServiceConnected(%s)", Hex.toHexString(authInfo));
             }
         } catch (RemoteException e) {
             e.printStackTrace();
