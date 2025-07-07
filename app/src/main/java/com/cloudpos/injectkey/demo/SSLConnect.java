@@ -28,9 +28,9 @@ import javax.net.ssl.TrustManagerFactory;
  */
 
 public class SSLConnect {
-//    private String host = "192.168.200.201";
-    private String host = "app.wizarpos.com";
-    private int port = 2200;
+private String host = "192.168.200.201";
+    //private String host = "app.wizarpos.com";
+    private int port = 11060;
     private int connectTimeout = 3 * 1000;
     private int readTimeout = 100000 * 1000;
 

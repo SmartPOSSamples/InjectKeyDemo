@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 //                    injector.importKeyInfo(keyInfo);
                     int keyResult = keyLoaderService.importKeyInfo(keyInfo);
                     Logger.debug("doInjectMasterKey(importKeyInfo = %s)", keyResult);
+                    if(keyResult<0){
+                        throw new Exception("Inject master key fail");
+                    }
                 }
                 UiUtils.showDialogInfo(MainActivity.this, "Inject master key success");
             } catch (Exception | Error e) {
