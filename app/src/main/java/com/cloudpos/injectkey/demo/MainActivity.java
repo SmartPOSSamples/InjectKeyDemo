@@ -132,7 +132,10 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     byte[] keyInfo = key.getKeyData();
                     UiUtils.showToastLong(MainActivity.this, "Receive key info from remote server. And prepare to import dukpt key info.");
                     int keyResult = keyLoaderService.importKeyInfo(keyInfo);
-                    Logger.debug("doInjectMasterKey(importKeyInfo = %s)", keyResult);
+                    Logger.debug("doInjectDukptKey(importKeyInfo = %s)", keyResult);
+                    if(keyResult<0){
+                        throw new Exception("Inject dukpt key fail");
+                    }
                 }
 
                 UiUtils.showDialogInfo(MainActivity.this, "Inject dukpt key success");
